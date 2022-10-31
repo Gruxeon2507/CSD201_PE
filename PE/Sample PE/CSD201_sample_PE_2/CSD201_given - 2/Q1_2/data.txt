@@ -1,0 +1,13 @@
+Line 0 - The next line is line 1 (f1)
+ AA    AB   	AC   	 AD   AE    	AF     AG
+ 9    3    	7   	 2    6    	4  	 105
+Line 3 - The next line is line 4 (f2)
+ AA    AB   	AC   	 AD   AE    	AF     AG
+ 9    13    	7   	 12    6    	4  	 105
+Line 6 - The next line is line 7 (f3)
+AA    AB   	AC   	 AD   AE    	AF     AG	AC	AE
+ 9    13    	7   	 12    6    	4  	 105	20	19
+Line 9 - The next line is line 10 (f4)
+AA    AB   	BC   	 AD   EE    	AF     AG	AC	AE
+ 9    13    	8   	 12    6    	4  	 105	20	19
+END
