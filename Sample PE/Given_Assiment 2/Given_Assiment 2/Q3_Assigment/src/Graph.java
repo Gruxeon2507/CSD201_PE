@@ -146,6 +146,28 @@ class Graph
         f.writeBytes(" " + v[i]+"("+deg(i)+")");
         
     }  
+    ArrayList<Integer> ArrList = new ArrayList<Integer>();
+    
+      void breadth2(boolean [] en, int i, RandomAccessFile f) throws Exception
+   {Queue q = new Queue();
+    int r,j;
+    q.enqueue(i); en[i]=true;
+    while(!q.isEmpty())
+     {r = q.dequeue();
+      ArrList.add(r);
+      for(j=0;j<n;j++)
+       {if(!en[j] && a[r][j]>0) {q.enqueue(j);en[j]=true;}
+       }
+     }
+   }
+
+  void breadth2(int  k, RandomAccessFile f) throws Exception
+   {boolean [] en = new boolean[20];
+    int i;
+    for(i=0;i<n;i++) en[i]=false;
+    breadth2(en,k,f);
+    for(i=0;i<n;i++) if(!en[i]) breadth2(en,i,f);
+   }
 //===========================================================================
   void f2() throws Exception
    {loadData(12);
@@ -158,7 +180,7 @@ class Graph
        Your task is to insert statements here, just after this comment,
        to complete the question in the exam paper.*/
 
-       dijkstra(1,4, f);
+       dijkstra(1,5, f);
     //-------------------------------------------------------------------------------------
     f.writeBytes("\r\n");
     f.close();
@@ -178,13 +200,19 @@ class Graph
         int sel = from;
         visited[sel] = true;
 //        path[0] = from;
-        for (int t = 0; t < n; t++) {
 
+        ArrayList<Integer> stack1 = new ArrayList<>();
+        ArrayList<Integer> stack2 = new ArrayList<>();
+        stack1.add(from);
+        stack2.add(0);
+        for (int t = 0; t < n; t++) {
+            
             for (int i = 0; i < n; i++) {
                 //cac dinh lien ke cua from
                 if (!visited[i] && (a[sel][i] + distance[sel] < distance[i])) {
                     distance[i] = a[sel][i] + distance[sel];
                     path[i] = sel;
+                    
                 }
 
             }
@@ -196,10 +224,14 @@ class Graph
                 }
             }
             visited[sel] = true;
+            if(t<n-1){
+            stack1.add(sel);
+            stack2.add(min);
+            }
         }
 
         int x = to;
-        java.util.Stack stack = new java.util.Stack();
+        Stack stack = new Stack();
         while (x != from) {
             stack.push(x);
             x = path[x];
@@ -211,6 +243,12 @@ class Graph
             x = (int) stack.pop();
             ans += v[x] + " ";
             dis = dis + distance[x] + " ";
+        }
+        dis+="\n";
+        for(int i=0;i<stack1.size();i++){
+            
+            dis=dis+ v[stack1.get(i)]+'-'+stack2.get(i)+" ";
+            if(stack1.get(i)==to) break;
         }
         f.writeBytes(ans + "\n" + dis);
 
